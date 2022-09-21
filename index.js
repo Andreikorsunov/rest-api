@@ -36,7 +36,14 @@ app.post('/widgets', (req, res) => { // Read 25-38 defineerivad lõpp-punkti POS
         newWidget
     )
 })
-
+// DELETE
+app.delete('/widgets/:id',(req,res)=>{
+    if(typeof widgets[req.params.id - 1] === 'undefined') {
+        return res.status(404).send({ error: "Widget not found" })
+    }
+    widgets.splice(req.params.id-1,1)
+    res.status(204).send()
+})
 app.listen(8080, () => { // Read 40-42 kutsutakse välja meetod listen(). Esimeseks argumendiks on port 8080, millel hakatakse kuulama päringuid. Teiseks (valikuline) argumendiks funktsiooni, kus prinditakse konsoolile aadressi, millel on rakendus kättesaadav
     console.log(`API up at: http://localhost:8080`)
 })
