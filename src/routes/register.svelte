@@ -7,12 +7,13 @@
     let username = '';
     let email = '';
     let password = '';
-    let errors = null;
+    let error = null;
 
     async function submit(event) {
         const response = await post(`auth/register`, { username, email, password });
 
         // TODO handle network errors
+        error = response.error;
 
         if (response.user) {
             $session.user = response.user;
@@ -34,6 +35,7 @@
                     <a href="/login">Have an account?</a>
                 </p>
 
+                {error}
 
                 <form on:submit|preventDefault={submit}>
                     <fieldset class="form-group">
