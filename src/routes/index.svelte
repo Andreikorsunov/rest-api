@@ -43,7 +43,7 @@
 <h1>Great success!</h1>
 
 <figure>
-	<img alt="Success Kid" src="{successkid}">
+	<img alt="Success Kid" src="{#183362027}">
 	<figcaption>Testime Sapper!</figcaption>
 </figure>
 
