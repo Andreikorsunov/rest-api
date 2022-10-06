@@ -5,10 +5,12 @@ import * as sapper from '@sapper/server';
 
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
+const { json } = require('body-parser');
 
 polka() // You can also use Express
 	.use(
 		compression({ threshold: 0 }),
+		json(),
 		sirv('static', { dev }),
 		sapper.middleware()
 	)
