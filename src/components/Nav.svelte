@@ -1,5 +1,15 @@
 <script>
 	export let segment;
+
+	import {goto, stores} from '@sapper/app';
+	const { page, session } = stores();
+	import { post } from 'api.js';
+
+	async function logout(){
+		await post(`auth/login`);
+		$session.token = null;
+		goto('/');
+	}
 </script>
 
 <style>
@@ -48,12 +58,15 @@
 	}
 </style>
 
+<!--{JSON.stringify($session)}-->
 <nav>
 	<ul>
-		<li><a aria-current="{segment === 'register' ? 'page' : undefined}" href="register">register</a></li>
-		<li><a aria-current="{segment === 'login' ? 'page' : undefined}" href="login">login</a></li>
+		{#if $session.token}
+			<li><a aria-current="{segment === 'logout' ? 'page' : undefined}" href="{logout}" on:click|preventDefault={logout}>Log out</a></li>
+		{:else}
+			<li><a aria-current="{segment === 'register' ? 'page' : undefined}" href="register">register</a></li>
+			<li><a aria-current="{segment === 'login' ? 'page' : undefined}" href="login">login</a></li>
+		{/if}
 
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
 	</ul>
 </nav>
