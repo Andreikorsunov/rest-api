@@ -58,14 +58,18 @@
 	}
 </style>
 
-<!--{JSON.stringify($session)}-->
 <nav>
 	<ul>
 		{#if $session.token}
-			<li><a aria-current="{segment === 'logout' ? 'page' : undefined}" href="{logout}" on:click|preventDefault={logout}>Log out</a></li>
+			<li><a aria-current="{segment === 'overview' ? 'page' : undefined}"
+				   href="overview">overview</a></li>
+			<li><a aria-current="{segment === 'logout' ? 'page' : undefined}"
+				   href="{logout}" on:click|preventDefault={logout}>Log out</a></li>
 		{:else}
-			<li><a aria-current="{segment === 'register' ? 'page' : undefined}" href="register">register</a></li>
-			<li><a aria-current="{segment === 'login' ? 'page' : undefined}" href="login">login</a></li>
+			<li><a aria-current="{segment === 'register' ? 'page' : undefined}"
+				   href="register">register</a></li>
+			<li><a aria-current="{segment === 'login' ? 'page' : undefined}"
+				   href="login">login</a></li>
 		{/if}
 
 	</ul>
