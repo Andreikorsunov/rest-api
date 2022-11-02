@@ -8,29 +8,26 @@
 <script>
     import {post} from "utils.js";
 
-    async function getMyData() {
-
-        return await post(`auth/getMyData`).then(r => {
+    async function getMyData(){
+        return await post(`auth/getMyData`).then(r=>{
             r.funds = r.accounts.reduce((funds, account) => funds + account.balance, 0)
             return r
         })
     }
 
     async function getTransactions(){
-
         return await post(`auth/getTransactions`)
     }
-
 </script>
 {#if process.browser}
-    {#await  getMyData()}
+    {#await getMyData()}
         Loading...
     {:then my}
         <section>
             <p style="font-size:xx-large">{my.name}</p>
         </section>
         <section>
-            My funds
+            My Funds
             <p style="font-size:xx-large; color: {my.funds >= 0 ? 'green' : 'red'}">{my.funds}</p>
         </section>
         <section>
@@ -43,27 +40,28 @@
         <section>
             {#await getTransactions()}
                 Loading...
-                {:then transactions}
+            {:then transactions}
                 <table class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>SenderName</th>
-                        <th>Amount</th>
-                        <th>CreatedAt</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
+                    <thread>
+                        <tr>
+                            <th>senderName</th>
+                            <th>amount</th>
+                            <th>createdAt</th>
+                            <th>status</th>
+                        </tr>
+                    </thread>
                     <tbody>
                     {#each transactions as transaction}
                         <tr>
                             <td><b>{transaction.senderName}</b><br>{transaction.explanation}</td>
-                            <td style="color: {transaction.amount >= 0 ? 'green' : 'red'}">{transaction.currency}</td>
+                            <td style="color: {transaction.amount >= 0 ? 'green' : 'red'}">{transaction.amount} {transaction.currency}</td>
                             <td>{transaction.createdAt}</td>
                             <td><b>{transaction.status}</b><br>{transaction.statusDetail}</td>
                         </tr>
-                        {/each}
+                    {/each}
                     </tbody>
-                </table>    
+                </table>
+
             {/await}
         </section>
     {/await}
